@@ -1,0 +1,77 @@
+---
+Language: Cpp
+# 基础样式
+BasedOnStyle: Mozilla
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 200
+
+# 大括号换行样式
+BreakBeforeBraces: Attach
+
+# 命名空间设置
+NamespaceIndentation: None
+CompactNamespaces: false
+
+# 指针和引用对齐
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# 访问修饰符缩进
+AccessModifierOffset: -4
+
+# 注释设置
+AlignTrailingComments: true
+ReflowComments: true
+CommentPragmas: '^ IWYU pragma:'
+
+# 函数声明和调用
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackParameters: false
+BinPackArguments: false
+AlignAfterOpenBracket: Align
+AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterDefinitionReturnType: None
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# 模板设置
+AlwaysBreakTemplateDeclarations: Yes
+
+# 继承列表样式
+BreakInheritanceList: BeforeColon
+
+# 构造函数初始化列表
+BreakConstructorInitializers: BeforeColon
+ConstructorInitializerIndentWidth: 4
+
+# 预处理器设置
+IndentPPDirectives: AfterHash
+
+# 短代码块设置
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# 排序设置
+SortIncludes: CaseInsensitive
+SortUsingDeclarations: true
+
+# 空行设置
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# 运算符换行
+BreakBeforeBinaryOperators: NonAssignment
+AlignOperands: Align
+
+# 其他设置
+Cpp11BracedListStyle: true
+SpaceAfterTemplateKeyword: false
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false 

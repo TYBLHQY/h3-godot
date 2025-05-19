@@ -1,3 +1,8 @@
+/build/
+/h3-godot-test/
+/.vscode/
+/script/test.bat
+/src/gen/
 # Prerequisites
 *.d
 

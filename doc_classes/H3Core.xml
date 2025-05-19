@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="H3Core" inherits="RefCounted"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		h3-godot is a Godot extension based on the H3 Core Library, providing a hexagonal geographic grid system. It is directly compiled from the C language version, offering identical functionality and high-performance operations as the C API.
+	</brief_description>
+	<description>
+		Highlights
+			H3 is a hierarchical [url=https://h3geo.org/docs/highlights/indexing/]geospatial index[/url].
+			H3 was developed to address the [url=https://h3geo.org/docs/highlights/aggregation/]challenges of Uber's data science needs[/url].
+			H3 can be used to [url=https://h3geo.org/docs/highlights/joining/]join disparate data sets[/url].
+			In addition to the benefits of the hexagonal grid shape, H3 includes features for [url=https://h3geo.org/docs/highlights/flowmodel/]modeling flow[/url].
+			H3 is well suited to apply [url=https://h3geo.org/docs/highlights/ml/]ML to geospatial data[/url]. Comparisons [url=https://h3geo.org/docs/comparisons/s2/]S2[/url], an open source, hierarchical, discrete, and global grid system using square cells. [url=https://h3geo.org/docs/comparisons/geohash/]Geohash[/url], a system for encoding locations using a string of characters, creating a hierarchical, square grid system (a quadtree). [url=https://h3geo.org/docs/comparisons/hexbin/]Hexbin[/url], the process of taking coordinates and binning them into hexagonal cells in analytics or mapping software. [url=https://h3geo.org/docs/comparisons/admin/]Admin Boundaries[/url], officially designated areas used for aggregating and analyzing data. [url=https://h3geo.org/docs/comparisons/placekey/]Placekey[/url], a system for encoding points of interest (POIs) which incorporates H3 in its POI identifier.
+	</description>
+	<tutorials>
+		<link title="H3 Godot Library">https://github.com/TYBLHQY/h3-godot</link>
+		<link title="H3 Core Library">https://github.com/godot-h3/h3-godot</link>
+		<link title="H3 Documentation">https://h3geo.org/docs/</link>
+	</tutorials>
+	<methods>
+		<method name="are_neighbor_cells" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="destination" type="int" />
+			<description>
+				Determines whether or not the provided H3 cells are neighbors.
+			</description>
+		</method>
+		<method name="cell_area_km2" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Exact area of specific cell in square kilometers.
+			</description>
+		</method>
+		<method name="cell_area_m2" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Exact area of specific cell in square meters.
+			</description>
+		</method>
+		<method name="cell_area_rads2" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Exact area of specific cell in square radians.
+			</description>
+		</method>
+		<method name="cell_to_boundary" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Finds the boundary of the cell. For more information, see the [url=https://h3geo.org/docs/core-library/cellToBoundaryDesc]algorithm description[/url].
+			</description>
+		</method>
+		<method name="cell_to_boundary_packed" qualifiers="const">
+			<return type="PackedVector2Array" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Finds the boundary of the cell. For more information, see the [url=https://h3geo.org/docs/core-library/cellToBoundaryDesc]algorithm description[/url].
+			</description>
+		</method>
+		<method name="cell_to_center_child" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="child_res" type="int" />
+			<description>
+				Provides the center child (finer) cell contained by cell at resolution child_res.
+			</description>
+		</method>
+		<method name="cell_to_child_pos" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="child" type="int" />
+			<param index="1" name="parent_res" type="int" />
+			<description>
+				Provides the position of the child cell within an ordered list of all children of the cell's parent at the specified resolution parentr_es. The order of the ordered list is the same as that returned by cell_to_children. This is the complement of child_pos_to_cell.
+			</description>
+		</method>
+		<method name="cell_to_child_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="child_res" type="int" />
+			<description>
+				Provides the number of children at a given resolution of the given cell.
+				Provides the size of the children array needed for the given inputs to cellToChildren.
+			</description>
+		</method>
+		<method name="cell_to_children" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="child_res" type="int" />
+			<description>
+				Provides the children (descendant) cells of cell at resolution childRes.
+				Note: children must be an array of at least size cell_to_children_size(cell, childRes).
+			</description>
+		</method>
+		<method name="cell_to_children_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="child_res" type="int" />
+			<description>
+				Provides the children (descendant) cells of cell at resolution childRes.
+				Note: children must be an array of at least size cell_to_children_size(cell, childRes).
+			</description>
+		</method>
+		<method name="cell_to_lat_lng" qualifiers="const">
+			<return type="Vector2" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Finds the center of the cell in grid space. See the [url=https://h3geo.org/docs/core-library/cellToLatLngDesc]algorithm description[/url] for more information.
+				The center will drift versus the centroid of the cell on Earth due to distortion from the gnomonic projection within the icosahedron face it resides on and its distance from the center of the icosahedron face.
+			</description>
+		</method>
+		<method name="cell_to_local_ij" qualifiers="const">
+			<return type="Vector2i" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="h3_index" type="int" />
+			<description>
+				Produces local IJ coordinates for an H3 cell anchored by an origin.
+				This function's output is not guaranteed to be compatible across different versions of H3.
+			</description>
+		</method>
+		<method name="cell_to_parent" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="parent_res" type="int" />
+			<description>
+				Provides the unique ancestor (coarser) cell of the given cell for the provided resolution. If the input cell has resolution r, then parentRes = r - 1 would give the immediate parent, parentRes = r - 2 would give the grandparent, and so on.
+			</description>
+		</method>
+		<method name="cell_to_vertex" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="vertex_num" type="int" />
+			<description>
+				Returns the index for the specified cell vertex. Valid vertex numbers are between 0 and 5 (inclusive) for hexagonal cells, and 0 and 4 (inclusive) for pentagonal cells.
+			</description>
+		</method>
+		<method name="cell_to_vertices" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="origin" type="int" />
+			<description>
+				Returns the indexes for all vertexes of the given cell.
+			</description>
+		</method>
+		<method name="cell_to_vertices_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="origin" type="int" />
+			<description>
+				Returns the indexes for all vertexes of the given cell.
+			</description>
+		</method>
+		<method name="cells_to_directed_edge" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="destination" type="int" />
+			<description>
+				Provides a directed edge H3 index based on the provided origin and destination.
+			</description>
+		</method>
+		<method name="cells_to_linked_multi_polygon" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_set" type="Array" />
+			<description>
+				Create a GeoJSON-like multi-polygon describing the outline(s) of a set of cells. Polygon outlines will follow GeoJSON MultiPolygon order: Each polygon will have one outer loop, which is first in the list, followed by any holes.
+				It is expected that all cells in the set have the same resolution and that the set contains no duplicates. Behavior is undefined if duplicates or multiple resolutions are present, and the algorithm may produce unexpected or invalid output.
+			</description>
+		</method>
+		<method name="child_pos_to_cell" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="child_pos" type="int" />
+			<param index="1" name="parent" type="int" />
+			<param index="2" name="child_res" type="int" />
+			<description>
+				Provides the child cell at a given position within an ordered list of all children of parent at the specified resolution child_res. The order of the ordered list is the same as that returned by cell_to_children. This is the complement of cell_to_child_pos.
+			</description>
+		</method>
+		<method name="compact_cells" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_set" type="Array" />
+			<description>
+				Compacts a collection of H3 cells by recursively replacing children cells with their parents if all children are present. Input cells must all share the same resolution.
+				Compacts cel_set into the array compacted_set. compacted_set must be at least the size of cell_set (in case the set cannot be compacted).
+			</description>
+		</method>
+		<method name="compact_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_set" type="PackedInt64Array" />
+			<description>
+				Compacts a collection of H3 cells by recursively replacing children cells with their parents if all children are present. Input cells must all share the same resolution.
+				Compacts cel_set into the array compacted_set. compacted_set must be at least the size of cell_set (in case the set cannot be compacted).
+			</description>
+		</method>
+		<method name="degs_to_rads" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="degrees" type="float" />
+			<description>
+				Converts degrees to radians.
+			</description>
+		</method>
+		<method name="directed_edge_to_boundary" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the geographic lat/lng coordinates defining the directed edge. Note that this may be more than two points for complex edges.
+			</description>
+		</method>
+		<method name="directed_edge_to_boundary_packed" qualifiers="const">
+			<return type="PackedVector2Array" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the geographic lat/lng coordinates defining the directed edge. Note that this may be more than two points for complex edges.
+			</description>
+		</method>
+		<method name="directed_edge_to_cells" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the origin-destination pair of cells for the given directed edge.
+				The origin and destination are placed at origin_destination[0] and origin_destination[1], respectively.
+			</description>
+		</method>
+		<method name="directed_edge_to_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the origin-destination pair of cells for the given directed edge.
+				The origin and destination are placed at origin_destination[0] and origin_destination[1], respectively.
+			</description>
+		</method>
+		<method name="edge_length_km" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Exact edge length of specific unidirectional edge in kilometers.
+			</description>
+		</method>
+		<method name="edge_length_m" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Exact edge length of specific unidirectional edge in meters.
+			</description>
+		</method>
+		<method name="edge_length_rads" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Exact edge length of specific unidirectional edge in radians.
+			</description>
+		</method>
+		<method name="get_base_cell_number" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns the base cell number of the index. (Works for cells, edges, and vertexes.)
+			</description>
+		</method>
+		<method name="get_directed_edge_destination" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the destination hexagon from the directed edge H3Index.
+			</description>
+		</method>
+		<method name="get_directed_edge_origin" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Provides the origin hexagon from the directed edge H3Index.
+			</description>
+		</method>
+		<method name="get_hexagon_area_avg_km2" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="res" type="int" />
+			<description>
+				Average hexagon area in square kilometers at the given resolution. Excludes pentagons.
+			</description>
+		</method>
+		<method name="get_hexagon_area_avg_m2" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="res" type="int" />
+			<description>
+				Average hexagon area in square meters at the given resolution. Excludes pentagons.
+			</description>
+		</method>
+		<method name="get_hexagon_edge_length_avg_km" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="res" type="int" />
+			<description>
+				Average hexagon edge length in kilometers at the given resolution. Excludes pentagons.
+			</description>
+		</method>
+		<method name="get_hexagon_edge_length_avg_m" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="res" type="int" />
+			<description>
+				Average hexagon edge length in meters at the given resolution. Excludes pentagons.
+			</description>
+		</method>
+		<method name="get_icosahedron_faces" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Find all icosahedron faces intersected by a given H3 cell. Faces are represented as integers from 0-19, inclusive.
+			</description>
+		</method>
+		<method name="get_icosahedron_faces_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Find all icosahedron faces intersected by a given H3 cell. Faces are represented as integers from 0-19, inclusive.
+			</description>
+		</method>
+		<method name="get_num_cells" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="res" type="int" />
+			<description>
+				Number of unique H3 indexes at the given resolution.
+			</description>
+		</method>
+		<method name="get_pentagons" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="res" type="int" />
+			<description>
+				All the pentagon H3 cells at the specified resolution. There are 12 pentagons at each resolution.
+			</description>
+		</method>
+		<method name="get_pentagons_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="res" type="int" />
+			<description>
+				All the pentagon H3 cells at the specified resolution. There are 12 pentagons at each resolution.
+			</description>
+		</method>
+		<method name="get_res0_cells" qualifiers="const">
+			<return type="Array" />
+			<description>
+				Provide all the resolution 0 H3 cells. These are the coarsest cells that can be represented in the H3 system and are the parents/ancestors of all other cells in the H3 grid system. The returned cells correspond to the 122 base cells.
+			</description>
+		</method>
+		<method name="get_res0_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<description>
+				Provide all the resolution 0 H3 cells. These are the coarsest cells that can be represented in the H3 system and are the parents/ancestors of all other cells in the H3 grid system. The returned cells correspond to the 122 base cells.
+			</description>
+		</method>
+		<method name="get_resolution" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns the resolution of the index. (Works for cells, edges, and vertexes.)
+			</description>
+		</method>
+		<method name="great_circle_distance_km" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="point1" type="Vector2" />
+			<param index="1" name="point2" type="Vector2" />
+			<description>
+				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in kilometers.
+			</description>
+		</method>
+		<method name="great_circle_distance_m" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="point1" type="Vector2" />
+			<param index="1" name="point2" type="Vector2" />
+			<description>
+				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in meters.
+			</description>
+		</method>
+		<method name="great_circle_distance_rads" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="point1" type="Vector2" />
+			<param index="1" name="point2" type="Vector2" />
+			<description>
+				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in radians.
+			</description>
+		</method>
+		<method name="grid_disk" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces the "filled-in disk" of cells which are at most grid distance k from the origin cell.
+				Output order is not guaranteed.
+			</description>
+		</method>
+		<method name="grid_disk_distances" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces the same set of cells as gridDisk, but along with each cell's grid distance from the origin cell.
+			</description>
+		</method>
+		<method name="grid_disk_distances_unsafe" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				gridDiskDistancesUnsafe produces indexes within k distance of the origin index. Output behavior is undefined when one of the indexes returned by this function is a pentagon or is in the pentagon distortion area.
+				Output is placed in the provided array in order of increasing distance from the origin. The distances in hexagons is placed in the distances array at the same offset. The provided array must be of size maxGridDiskSize(k).
+			</description>
+		</method>
+		<method name="grid_disk_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces the "filled-in disk" of cells which are at most grid distance k from the origin cell.
+				Output order is not guaranteed.
+			</description>
+		</method>
+		<method name="grid_disk_unsafe" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces cells within grid distance k of the origin cell, just like gridDisk. However, the function may return an error code if pentagonal distorition is encountered. In this case, the output in the out array is undefined.
+				Users can fall back to calling the slower but more robust gridDiskDistances.
+			</description>
+		</method>
+		<method name="grid_disk_unsafe_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces cells within grid distance k of the origin cell, just like gridDisk. However, the function may return an error code if pentagonal distorition is encountered. In this case, the output in the out array is undefined.
+				Users can fall back to calling the slower but more robust gridDiskDistances.
+			</description>
+		</method>
+		<method name="grid_distance" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="h3" type="int" />
+			<description>
+				Provides the grid distance between two cells, which is defined as the minimum number of "hops" needed across adjacent cells to get from one cell to the other.
+				Note that finding the grid distance may fail for a few reasons:
+					- the cells are not comparable (different resolutions),
+					- the cells are too far apart, or
+					- the cells are separated by pentagonal distortion.
+				This is the same set of limitations as the local IJ coordinate space functions.
+			</description>
+		</method>
+		<method name="grid_path_cells" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="start" type="int" />
+			<param index="1" name="end" type="int" />
+			<description>
+				Given two H3 cells, return a minimal-length contiguous path of cells between them (inclusive of the endpoint cells).
+				This function may fail if the cells are very far apart, or if the cells are on opposite sides of a pentagon.
+				Notes:
+					The output of this function should not be considered stable across library versions. The only guarantees are that the path length will be gridDistance(start, end) + 1 and that every cell in the path will be a neighbor of the preceding cell.
+					Paths exist in the H3 grid of cells, and may not align closely with either Cartesian lines or great arcs.
+			</description>
+		</method>
+		<method name="grid_path_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="start" type="int" />
+			<param index="1" name="end" type="int" />
+			<description>
+				Given two H3 cells, return a minimal-length contiguous path of cells between them (inclusive of the endpoint cells).
+				This function may fail if the cells are very far apart, or if the cells are on opposite sides of a pentagon.
+				Notes:
+					The output of this function should not be considered stable across library versions. The only guarantees are that the path length will be gridDistance(start, end) + 1 and that every cell in the path will be a neighbor of the preceding cell.
+					Paths exist in the H3 grid of cells, and may not align closely with either Cartesian lines or great arcs.
+			</description>
+		</method>
+		<method name="grid_path_cells_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="start" type="int" />
+			<param index="1" name="end" type="int" />
+			<description>
+				Number of cells in a grid path from the start cell to the end cell.
+			</description>
+		</method>
+		<method name="grid_ring_unsafe" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces the "hollow ring" of cells which are exactly grid distance k from the origin cell.
+				This function may fail if pentagonal distortion is encountered.
+			</description>
+		</method>
+		<method name="grid_ring_unsafe_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="h3_index" type="int" />
+			<param index="1" name="k" type="int" />
+			<description>
+				Produces the "hollow ring" of cells which are exactly grid distance k from the origin cell.
+				This function may fail if pentagonal distortion is encountered.
+			</description>
+		</method>
+		<method name="h3_to_string" qualifiers="const">
+			<return type="String" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Converts the H3Index representation of the index to the string representation.
+			</description>
+		</method>
+		<method name="h3_to_vector4" qualifiers="const">
+			<return type="Vector4" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Converts the H3Index representation of the index to a Vector4.
+			</description>
+		</method>
+		<method name="h3s_to_string" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="h3_indices" type="Array" />
+			<description>
+				Converts an array of H3Index representation to an array of strings.
+			</description>
+		</method>
+		<method name="h3s_to_string_packed" qualifiers="const">
+			<return type="PackedStringArray" />
+			<param index="0" name="h3_indices" type="PackedInt64Array" />
+			<description>
+				Converts an array of H3Index representation to an array of strings.
+			</description>
+		</method>
+		<method name="is_pentagon" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns non-zero if this index represents a pentagonal cell.
+			</description>
+		</method>
+		<method name="is_res_class_iii" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns non-zero if this index has a resolution with Class III orientation.
+			</description>
+		</method>
+		<method name="is_valid_cell" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns non-zero if this is a valid H3 cell index.
+			</description>
+		</method>
+		<method name="is_valid_directed_edge" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="edge" type="int" />
+			<description>
+				Determines if the provided H3Index is a valid unidirectional edge index.
+			</description>
+		</method>
+		<method name="is_valid_vertex" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="vertex" type="int" />
+			<description>
+				Determines if the given H3 index represents a valid H3 vertex.
+			</description>
+		</method>
+		<method name="lat_lng_to_cell" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="lat" type="float" />
+			<param index="1" name="lon" type="float" />
+			<param index="2" name="res" type="int" />
+			<description>
+				Indexes the location at the specified resolution, providing the index of the cell containing the location. This buckets the geographic point into the H3 grid. For more information, see the [url=https://h3geo.org/docs/core-library/latLngToCellDesc]algorithm description[/url].
+			</description>
+		</method>
+		<method name="local_ij_to_cell" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="origin" type="int" />
+			<param index="1" name="ij" type="Vector2i" />
+			<description>
+				Produces an H3 cell from local IJ coordinates anchored by an origin.
+				This function's output is not guaranteed to be compatible across different versions of H3.
+			</description>
+		</method>
+		<method name="max_face_count" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_index" type="int" />
+			<description>
+				Returns the maximum number of icosahedron faces the given H3 index may intersect.
+			</description>
+		</method>
+		<method name="max_grid_disk_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="k" type="int" />
+			<description>
+				Maximum number of cells that can result from the gridDisk function for a given k.
+			</description>
+		</method>
+		<method name="max_polygon_to_cells_experimental_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Provides an upper bound on the number of cells needed for memory allocation purposes when computing polygon_to_cells_experimental on the given GeoJSON-like data structure.
+			</description>
+		</method>
+		<method name="max_polygon_to_cells_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Provides an upper bound on the number of cells needed for memory allocation purposes when computing polygon_to_cells on the given GeoJSON-like data structure.
+			</description>
+		</method>
+		<method name="origin_to_directed_edges" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="origin" type="int" />
+			<description>
+				Provides all of the directed edges from the current cell.
+				edges must be of length 6, and the number of directed edges placed in the array may be less than 6. If this is the case, one of the members of the array will be 0.
+			</description>
+		</method>
+		<method name="origin_to_directed_edges_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="origin" type="int" />
+			<description>
+				Provides all of the directed edges from the current cell.
+				edges must be of length 6, and the number of directed edges placed in the array may be less than 6. If this is the case, one of the members of the array will be 0.
+			</description>
+		</method>
+		<method name="pentagon_count" qualifiers="const">
+			<return type="int" />
+			<description>
+				Number of pentagon H3 cells per resolution. This is always 12, but provided as a convenience.
+			</description>
+		</method>
+		<method name="polygon_to_cells" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Each binding's version of polygon_to_cells takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
+				Containment is determined by centroids of the cells, so that a partitioning of polygons (covering an area without overlaps) will result in a partitioning of H3 cells.
+			</description>
+		</method>
+		<method name="polygon_to_cells_experimental" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Each binding's version of polygon_to_cells_experimental takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
+				This function differs from polygon_to_cells in that it uses an experimental new algorithm which supports center-based, fully-contained, and overlapping containment modes.
+			</description>
+		</method>
+		<method name="polygon_to_cells_experimental_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Each binding's version of polygon_to_cells_experimental takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
+				This function differs from polygon_to_cells in that it uses an experimental new algorithm which supports center-based, fully-contained, and overlapping containment modes.
+			</description>
+		</method>
+		<method name="polygon_to_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="polygon" type="Array" />
+			<param index="1" name="res" type="int" />
+			<param index="2" name="flags" type="int" />
+			<param index="3" name="is_geojson" type="bool" default="false" />
+			<description>
+				Each binding's version of polygon_to_cells takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
+				Containment is determined by centroids of the cells, so that a partitioning of polygons (covering an area without overlaps) will result in a partitioning of H3 cells.
+			</description>
+		</method>
+		<method name="rads_to_degs" qualifiers="const">
+			<return type="float" />
+			<param index="0" name="radians" type="float" />
+			<description>
+				Converts radians to degrees.
+			</description>
+		</method>
+		<method name="res0_cell_count" qualifiers="const">
+			<return type="int" />
+			<description>
+				Number of resolution 0 H3 indexes, which is defined as 122.
+			</description>
+		</method>
+		<method name="string_to_h3" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="h3_str" type="String" />
+			<description>
+				Converts the string representation to H3Index (int) representation.
+			</description>
+		</method>
+		<method name="strings_to_h3" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="strs" type="Array" />
+			<description>
+				Converts an array of strings to an array of H3Index representation.
+			</description>
+		</method>
+		<method name="strings_to_h3_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="strs" type="PackedStringArray" />
+			<description>
+				Converts an array of strings to an array of H3Index representation.
+			</description>
+		</method>
+		<method name="uncompact_cells" qualifiers="const">
+			<return type="Array" />
+			<param index="0" name="compacted_set" type="Array" />
+			<param index="1" name="res" type="int" />
+			<description>
+				Uncompacts the set compacted_set of indexes to the resolution res. h3_set must be at least of size uncompact_cells_size(compacted_set, num_hexes, res).
+			</description>
+		</method>
+		<method name="uncompact_cells_packed" qualifiers="const">
+			<return type="PackedInt64Array" />
+			<param index="0" name="compacted_set" type="PackedInt64Array" />
+			<param index="1" name="res" type="int" />
+			<description>
+				Uncompacts the set compacted_set of indexes to the resolution res. h3_set must be at least of size uncompact_cells_size(compacted_set, num_hexes, res).
+			</description>
+		</method>
+		<method name="uncompact_cells_size" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="compacted_set" type="Array" />
+			<param index="1" name="res" type="int" />
+			<description>
+				Provides the total resulting number of cells if uncompacting a cell set to a given resolution.
+			</description>
+		</method>
+		<method name="uncompact_cells_size_packed" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="compacted_set" type="PackedInt64Array" />
+			<param index="1" name="res" type="int" />
+			<description>
+				Provides the total resulting number of cells if uncompacting a cell set to a given resolution.
+			</description>
+		</method>
+		<method name="vector4_to_h3" qualifiers="const">
+			<return type="int" />
+			<param index="0" name="vec" type="Vector4" />
+			<description>
+				Converts the Vector4 representation back to an H3Index
+			</description>
+		</method>
+		<method name="vertex_to_lat_lng" qualifiers="const">
+			<return type="Vector2" />
+			<param index="0" name="vertex" type="int" />
+			<description>
+				Returns the latitude and longitude coordinates of the given vertex.
+			</description>
+		</method>
+	</methods>
+</class>
