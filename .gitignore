@@ -1,5 +1,6 @@
-src/gen/
 addons/
+src/gen/
+.sconsign.dblite
 
 # Prerequisites
 *.d
