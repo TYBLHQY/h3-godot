@@ -5,14 +5,12 @@ pushd %~dp0\..
 echo Starting build process...
 
 REM Delete build folder
-if exist build rmdir /s /q build
+if exist addons\h3-godot\bin rmdir /s /q addons\h3-godot\bin
 
 REM Copy GDExtension configuration file
 echo.
 echo Copying GDExtension configuration file...
-if not exist build\bin mkdir build\bin
-copy /Y h3_godot_extension.gdextension build\bin\
-copy /Y h3_godot_extension.gdextension.uid build\bin\
+if not exist addons\h3-godot\bin mkdir addons\h3-godot\bin
 if errorlevel 1 goto error
 
 REM Update and build godot-cpp
@@ -40,8 +38,8 @@ echo Building h3...
 cmake --build . --config Release
 if errorlevel 1 goto error
 
-echo Copying h3.dll to build/bin...
-copy /Y bin\Release\h3.dll ..\..\build\bin\
+echo Copying h3.dll to addons\h3-godot\bin...
+copy /Y bin\Release\h3.dll ..\..\addons\h3-godot\bin\
 if errorlevel 1 goto error
 
 popd
@@ -70,8 +68,6 @@ if errorlevel 1 goto error
 
 echo.
 echo Build completed successfully!
-echo Debug version: build/bin/libh3_extension.windows.template_debug.x86_64.dll
-echo Release version: build/bin/libh3_extension.windows.template_release.x86_64.dll
 
 REM back to the source directory
 popd

@@ -30,7 +30,7 @@ if env["target"] in ["editor", "template_debug"]:
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "build/bin/libh3_extension.{}.{}.framework/libh3_extension.{}.{}".format(
+        "h3-godot/bin/libh3_extension.{}.{}.framework/libh3_extension.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
@@ -38,37 +38,37 @@ if env["platform"] == "macos":
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
         library = env.StaticLibrary(
-            "build/bin/libh3_extension.{}.{}.simulator.a".format(env["platform"], env["target"]),
+            "h3-godot/bin/libh3_extension.{}.{}.simulator.a".format(env["platform"], env["target"]),
             source=sources,
         )
     else:
         library = env.StaticLibrary(
-            "build/bin/libh3_extension.{}.{}.a".format(env["platform"], env["target"]),
+            "h3-godot/bin/libh3_extension.{}.{}.a".format(env["platform"], env["target"]),
             source=sources,
         )
 elif env["platform"] == "linux":
     env.Append(CCFLAGS=["-fPIC"])
     env.Append(LIBS=["dl"])
     library = env.SharedLibrary(
-        "build/bin/libh3_extension.so",
+        "h3-godot/bin/libh3_extension.so",
         source=sources,
     )
 elif env["platform"] == "android":
     env.Append(CCFLAGS=["-fPIC"])
     library = env.SharedLibrary(
-        "build/bin/libh3_extension.so",
+        "h3-godot/bin/libh3_extension.so",
         source=sources,
     )
 elif env["platform"] == "web":
     env.Append(CCFLAGS=["-s", "SIDE_MODULE=1"])
     env.Append(LINKFLAGS=["-s", "SIDE_MODULE=1"])
     library = env.SharedLibrary(
-        "build/bin/libh3_extension.wasm",
+        "h3-godot/bin/libh3_extension.wasm",
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "build/bin/libh3_extension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "h3-godot/bin/libh3_extension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 
