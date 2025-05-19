@@ -66,6 +66,10 @@ scons target=template_release platform=windows
 @REM scons target=template_release platform=web
 if errorlevel 1 goto error
 
+REM remove .exp and .lib file under addons\h3-godot\bin
+del addons\h3-godot\bin\*.exp
+del addons\h3-godot\bin\*.lib
+
 echo.
 echo Build completed successfully!
 
