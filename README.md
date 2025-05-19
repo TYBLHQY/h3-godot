@@ -2,7 +2,7 @@
 
 # H3 Godot
 
-Godot bindings for H3, a hierarchical hexagonal geospatial indexing system 
+Godot bindings for H3, a hierarchical hexagonal geospatial indexing system.
 
 H3 is a geospatial indexing system using a hexagonal grid that can be (approximately) subdivided into finer and finer hexagonal grids, combining the benefits of a hexagonal grid with [S2](https://code.google.com/archive/p/s2-geometry-library/)'s hierarchical subdivisions.
 
