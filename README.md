@@ -11,3 +11,9 @@ Documentation is available at [https://h3geo.org/](https://h3geo.org/). Develope
  * Post **bug reports or feature requests** to the [GitHub Issues page](https://github.com/uber/h3/issues)
  * Ask **questions** by posting to the [H3 tag on StackOverflow](https://stackoverflow.com/questions/tagged/h3)
  * There is also an [H3 Slack workspace](https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg)
+
+## How to use
+
+```gdscript
+var h3: H3Core = H3Core.new()
+```

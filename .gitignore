@@ -1,8 +1,5 @@
-bin/
-h3-godot-test/
-.vscode/
-script/test.bat
 src/gen/
+addons/
 
 # Prerequisites
 *.d
