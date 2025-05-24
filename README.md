@@ -1,4 +1,4 @@
-<img align="right" src="./h3-godot-icon.png" alt="H3 Logo" width="200">
+<img align="right" src="https://raw.githubusercontent.com/TYBLHQY/h3-godot/main/h3-godot-icon.png" alt="H3 Logo" width="200">
 
 # H3 Godot
 
