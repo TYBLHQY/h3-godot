@@ -1,6 +1,7 @@
 addons/
 src/gen/
 .sconsign.dblite
+.vscode/
 
 # Prerequisites
 *.d

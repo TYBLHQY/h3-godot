@@ -12,6 +12,10 @@ Documentation is available at [https://h3geo.org/](https://h3geo.org/). Develope
  * Ask **questions** by posting to the [H3 tag on StackOverflow](https://stackoverflow.com/questions/tagged/h3)
  * There is also an [H3 Slack workspace](https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg)
 
+## Supported OS
+
+- [x] Windows
+
 ## How to use
 
 ```gdscript
