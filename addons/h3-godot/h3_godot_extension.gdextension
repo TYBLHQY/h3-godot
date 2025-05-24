@@ -16,9 +16,9 @@ macos.release = "res://addons/h3-godot/bin/libh3_extension.macos.template_releas
 [dependencies]
 
 windows.debug.x86_64 = {
-    "res://bin/h3.dll": ""
+    "res://addons/h3-godot/bin/h3.dll": ""
 }
 
 windows.release.x86_64 = {
-    "res://bin/h3.dll": ""
+    "res://addons/h3-godot/bin/h3.dll": ""
 }
