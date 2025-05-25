@@ -5,17 +5,32 @@
 		h3-godot is a Godot extension based on the H3 Core Library, providing a hexagonal geographic grid system. It is directly compiled from the C language version, offering identical functionality and high-performance operations as the C API.
 	</brief_description>
 	<description>
-		Highlights
-			H3 is a hierarchical [url=https://h3geo.org/docs/highlights/indexing/]geospatial index[/url].
-			H3 was developed to address the [url=https://h3geo.org/docs/highlights/aggregation/]challenges of Uber's data science needs[/url].
-			H3 can be used to [url=https://h3geo.org/docs/highlights/joining/]join disparate data sets[/url].
-			In addition to the benefits of the hexagonal grid shape, H3 includes features for [url=https://h3geo.org/docs/highlights/flowmodel/]modeling flow[/url].
-			H3 is well suited to apply [url=https://h3geo.org/docs/highlights/ml/]ML to geospatial data[/url]. Comparisons [url=https://h3geo.org/docs/comparisons/s2/]S2[/url], an open source, hierarchical, discrete, and global grid system using square cells. [url=https://h3geo.org/docs/comparisons/geohash/]Geohash[/url], a system for encoding locations using a string of characters, creating a hierarchical, square grid system (a quadtree). [url=https://h3geo.org/docs/comparisons/hexbin/]Hexbin[/url], the process of taking coordinates and binning them into hexagonal cells in analytics or mapping software. [url=https://h3geo.org/docs/comparisons/admin/]Admin Boundaries[/url], officially designated areas used for aggregating and analyzing data. [url=https://h3geo.org/docs/comparisons/placekey/]Placekey[/url], a system for encoding points of interest (POIs) which incorporates H3 in its POI identifier.
+		H3 is a hierarchical [url=https://h3geo.org/docs/highlights/indexing/]geospatial index[/url].
+		H3 was developed to address the [url=https://h3geo.org/docs/highlights/aggregation/]challenges of Uber's data science needs[/url].
+		H3 can be used to [url=https://h3geo.org/docs/highlights/joining/]join disparate data sets[/url].
+		In addition to the benefits of the hexagonal grid shape, H3 includes features for [url=https://h3geo.org/docs/highlights/flowmodel/]modeling flow[/url].
+		H3 is well suited to apply [url=https://h3geo.org/docs/highlights/ml/]ML to geospatial data[/url]. Comparisons [url=https://h3geo.org/docs/comparisons/s2/]S2[/url], an open source, hierarchical, discrete, and global grid system using square cells. [url=https://h3geo.org/docs/comparisons/geohash/]Geohash[/url], a system for encoding locations using a string of characters, creating a hierarchical, square grid system (a quadtree). [url=https://h3geo.org/docs/comparisons/hexbin/]Hexbin[/url], the process of taking coordinates and binning them into hexagonal cells in analytics or mapping software. [url=https://h3geo.org/docs/comparisons/admin/]Admin Boundaries[/url], officially designated areas used for aggregating and analyzing data. [url=https://h3geo.org/docs/comparisons/placekey/]Placekey[/url], a system for encoding points of interest (POIs) which incorporates H3 in its POI identifier.
+
+		[b]Parameters:[/b]
+		[code]is_geojson[/code]: Whether to provide GeoJSON output: [code]Vector2(lng, lat)[/code]
+		[code]flags[/code]:
+		[codeblock]
+		0: Cell center is contained in the shape
+		1: Cell is fully contained in the shape
+		2: Cell overlaps the shape at any point
+		3: Cell bounding box overlaps shape
+		[/codeblock]
+
+		[b]How to use:[/b]
+		[codeblock]
+		var h3 := H3Core.new()
+		[/codeblock]
 	</description>
 	<tutorials>
-		<link title="H3 Godot Library">https://github.com/TYBLHQY/h3-godot</link>
+		<link title="H3 Documentation">https://h3geo.org/docs</link>
 		<link title="H3 Core Library">https://github.com/godot-h3/h3-godot</link>
-		<link title="H3 Documentation">https://h3geo.org/docs/</link>
+		<link title="H3 JS Library">https://github.com/uber/h3-js</link>
+		<link title="H3 Godot Library">https://github.com/TYBLHQY/h3-godot</link>
 	</tutorials>
 	<methods>
 		<method name="are_neighbor_cells" qualifiers="const">
@@ -24,6 +39,10 @@
 			<param index="1" name="destination" type="int" />
 			<description>
 				Determines whether or not the provided H3 cells are neighbors.
+				[codeblock]
+				h3.are_neighbor_cells(599686042433355775, 599686043507097599)
+				# true
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_area_km2" qualifiers="const">
@@ -31,6 +50,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Exact area of specific cell in square kilometers.
+				[codeblock]
+				h3.cell_area_km2(599686042433355775)
+				# 265.092558128282
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_area_m2" qualifiers="const">
@@ -38,6 +61,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Exact area of specific cell in square meters.
+				[codeblock]
+				h3.cell_area_m2(599686042433355775)
+				# 265092558.128
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_area_rads2" qualifiers="const">
@@ -45,6 +72,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Exact area of specific cell in square radians.
+				[codeblock]
+				h3.cell_area_rads2(599686042433355775)
+				# 0.00000653
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_boundary" qualifiers="const">
@@ -52,6 +83,17 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Finds the boundary of the cell. For more information, see the [url=https://h3geo.org/docs/core-library/cellToBoundaryDesc]algorithm description[/url].
+				[codeblock]
+				h3.cell_to_boundary(599686042433355775)
+				# [
+				#  (37.27135, -121.9151),
+				#  (37.35393, -121.8622),
+				#  (37.42834, -121.9236),
+				#  (37.42013, -122.0377),
+				#  (37.33755, -122.0904),
+				#  (37.2632, -122.0291)
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_boundary_packed" qualifiers="const">
@@ -67,6 +109,10 @@
 			<param index="1" name="child_res" type="int" />
 			<description>
 				Provides the center child (finer) cell contained by cell at resolution child_res.
+				[codeblock]
+				h3.cell_to_center_child(599686042433355775, 7)
+				# 608693240631132159
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_child_pos" qualifiers="const">
@@ -75,6 +121,10 @@
 			<param index="1" name="parent_res" type="int" />
 			<description>
 				Provides the position of the child cell within an ordered list of all children of the cell's parent at the specified resolution parentr_es. The order of the ordered list is the same as that returned by cell_to_children. This is the complement of child_pos_to_cell.
+				[codeblock]
+				h3.cell_to_child_pos(599686042433355775, 3)
+				# 25
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_child_size" qualifiers="const">
@@ -93,6 +143,18 @@
 			<description>
 				Provides the children (descendant) cells of cell at resolution childRes.
 				Note: children must be an array of at least size cell_to_children_size(cell, childRes).
+				[codeblock]
+				h3.cell_to_children(599686042433355775, 6)
+				# [
+				#  604189641121202175,
+				#  604189641255419903,
+				#  604189641389637631,
+				#  604189641523855359,
+				#  604189641658073087,
+				#  604189641792290815,
+				#  604189641926508543
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_children_packed" qualifiers="const">
@@ -110,6 +172,10 @@
 			<description>
 				Finds the center of the cell in grid space. See the [url=https://h3geo.org/docs/core-library/cellToLatLngDesc]algorithm description[/url] for more information.
 				The center will drift versus the centroid of the cell on Earth due to distortion from the gnomonic projection within the icosahedron face it resides on and its distance from the center of the icosahedron face.
+				[codeblock]
+				h3.cell_to_lat_lng(599686042433355775)
+				# (37.34579, -121.9764)
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_local_ij" qualifiers="const">
@@ -119,6 +185,10 @@
 			<description>
 				Produces local IJ coordinates for an H3 cell anchored by an origin.
 				This function's output is not guaranteed to be compatible across different versions of H3.
+				[codeblock]
+				h3.cell_to_local_ij(599686042433355775, 599686023106002943)
+				# (25, 13)
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_parent" qualifiers="const">
@@ -127,6 +197,10 @@
 			<param index="1" name="parent_res" type="int" />
 			<description>
 				Provides the unique ancestor (coarser) cell of the given cell for the provided resolution. If the input cell has resolution r, then parentRes = r - 1 would give the immediate parent, parentRes = r - 2 would give the grandparent, and so on.
+				[codeblock]
+				h3.cell_to_parent(599686042433355775, 4)
+				# 595182446027210751
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_vertex" qualifiers="const">
@@ -135,6 +209,10 @@
 			<param index="1" name="vertex_num" type="int" />
 			<description>
 				Returns the index for the specified cell vertex. Valid vertex numbers are between 0 and 5 (inclusive) for hexagonal cells, and 0 and 4 (inclusive) for pentagonal cells.
+				[codeblock]
+				h3.cell_to_vertex(599686042433355775, 2)
+				# 2329068295048658943
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_vertices" qualifiers="const">
@@ -142,6 +220,17 @@
 			<param index="0" name="origin" type="int" />
 			<description>
 				Returns the indexes for all vertexes of the given cell.
+				[codeblock]
+				h3.cell_to_vertices(599686042433355775)
+				# [
+				#  2473183459502194687,
+				#  2545241069646249983,
+				#  2329068295048658943,
+				#  2689356265238298623,
+				#  2473183460575936511,
+				#  2545241053540122623
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cell_to_vertices_packed" qualifiers="const">
@@ -157,6 +246,10 @@
 			<param index="1" name="destination" type="int" />
 			<description>
 				Provides a directed edge H3 index based on the provided origin and destination.
+				[codeblock]
+				h3.cells_to_directed_edge(599686042433355775, 599686043507097599)
+				# 1248204388774707199
+				[/codeblock]
 			</description>
 		</method>
 		<method name="cells_to_linked_multi_polygon" qualifiers="const">
@@ -165,6 +258,25 @@
 			<description>
 				Create a GeoJSON-like multi-polygon describing the outline(s) of a set of cells. Polygon outlines will follow GeoJSON MultiPolygon order: Each polygon will have one outer loop, which is first in the list, followed by any holes.
 				It is expected that all cells in the set have the same resolution and that the set contains no duplicates. Behavior is undefined if duplicates or multiple resolutions are present, and the algorithm may produce unexpected or invalid output.
+				[codeblock]
+				h3.cells_to_linked_multi_polygon([608692970719281151, 608692970819944447])
+				# [
+				#  [
+				#   [
+				#    (37.78405, -122.4271),
+				#    (37.77227, -122.4346),
+				#    (37.76173, -122.4258),
+				#    (37.76298, -122.4095),
+				#    (37.75245, -122.4006),
+				#    (37.75369, -122.3843),
+				#    (37.76547, -122.3768),
+				#    (37.776, -122.3856),
+				#    (37.77476, -122.402),
+				#    (37.78529, -122.4108)
+				#   ]
+				#  ]
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="child_pos_to_cell" qualifiers="const">
@@ -174,6 +286,10 @@
 			<param index="2" name="child_res" type="int" />
 			<description>
 				Provides the child cell at a given position within an ordered list of all children of parent at the specified resolution child_res. The order of the ordered list is the same as that returned by cell_to_children. This is the complement of cell_to_child_pos.
+				[codeblock]
+				h3.child_pos_to_cell(42, 599686042433355775, 7)
+				# 608693241436438527
+				[/codeblock]
 			</description>
 		</method>
 		<method name="compact_cells" qualifiers="const">
@@ -181,7 +297,25 @@
 			<param index="0" name="h3_set" type="Array" />
 			<description>
 				Compacts a collection of H3 cells by recursively replacing children cells with their parents if all children are present. Input cells must all share the same resolution.
-				Compacts cel_set into the array compacted_set. compacted_set must be at least the size of cell_set (in case the set cannot be compacted).
+				Compacts cel_set into the array [code]compacted_set[/code]. [code]compacted_set[/code] must be at least the size of cell_set (in case the set cannot be compacted).
+				[codeblock]
+				h3.compact_cells(h3.grid_disk(599686042433355775, 2))
+				# [
+				#  599686030622195711,
+				#  599686015589810175,
+				#  599686014516068351,
+				#  599686034917163007,
+				#  599686029548453887,
+				#  599686032769679359,
+				#  599686198125920255,
+				#  599686023106002943,
+				#  599686027400970239,
+				#  599686013442326527,
+				#  599686012368584703,
+				#  599686018811035647,
+				#  595182446027210751
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="compact_cells_packed" qualifiers="const">
@@ -189,7 +323,7 @@
 			<param index="0" name="h3_set" type="PackedInt64Array" />
 			<description>
 				Compacts a collection of H3 cells by recursively replacing children cells with their parents if all children are present. Input cells must all share the same resolution.
-				Compacts cel_set into the array compacted_set. compacted_set must be at least the size of cell_set (in case the set cannot be compacted).
+				Compacts cel_set into the array [code]compacted_set[/code]. [code]compacted_set[/code] must be at least the size of cell_set (in case the set cannot be compacted).
 			</description>
 		</method>
 		<method name="degs_to_rads" qualifiers="const">
@@ -197,6 +331,10 @@
 			<param index="0" name="degrees" type="float" />
 			<description>
 				Converts degrees to radians.
+				[codeblock]
+				h3.degs_to_rads(45)
+				# 0.78539816339
+				[/codeblock]
 			</description>
 		</method>
 		<method name="directed_edge_to_boundary" qualifiers="const">
@@ -204,6 +342,13 @@
 			<param index="0" name="edge" type="int" />
 			<description>
 				Provides the geographic lat/lng coordinates defining the directed edge. Note that this may be more than two points for complex edges.
+				[codeblock]
+				h3.directed_edge_to_boundary(1248204388774707199)
+				# [
+				#  (37.42013, -122.0377),
+				#  (37.33755, -122.0904)
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="directed_edge_to_boundary_packed" qualifiers="const">
@@ -219,6 +364,10 @@
 			<description>
 				Provides the origin-destination pair of cells for the given directed edge.
 				The origin and destination are placed at origin_destination[0] and origin_destination[1], respectively.
+				[codeblock]
+				h3.directed_edge_to_cells(1248204388774707199)
+				# [599686042433355775, 599686043507097599]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="directed_edge_to_cells_packed" qualifiers="const">
@@ -234,6 +383,10 @@
 			<param index="0" name="edge" type="int" />
 			<description>
 				Exact edge length of specific unidirectional edge in kilometers.
+				[codeblock]
+				h3.edge_length_km(1248204388774707199)
+				# 10.29473608619
+				[/codeblock]
 			</description>
 		</method>
 		<method name="edge_length_m" qualifiers="const">
@@ -241,6 +394,10 @@
 			<param index="0" name="edge" type="int" />
 			<description>
 				Exact edge length of specific unidirectional edge in meters.
+				[codeblock]
+				h3.edge_length_m(1248204388774707199)
+				# 10294.7360861995
+				[/codeblock]
 			</description>
 		</method>
 		<method name="edge_length_rads" qualifiers="const">
@@ -248,6 +405,10 @@
 			<param index="0" name="edge" type="int" />
 			<description>
 				Exact edge length of specific unidirectional edge in radians.
+				[codeblock]
+				h3.edge_length_rads(1248204388774707199)
+				# 0.00161587262325
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_base_cell_number" qualifiers="const">
@@ -255,20 +416,32 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns the base cell number of the index. (Works for cells, edges, and vertexes.)
+				[codeblock]
+				h3.get_base_cell_number(599686042433355775)
+				# 20
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_directed_edge_destination" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="edge" type="int" />
 			<description>
-				Provides the destination hexagon from the directed edge H3Index.
+				Provides the destination hexagon from the directed edge [code]H3Index[/code].
+				[codeblock]
+				h3.get_directed_edge_destination(1248204388774707199)
+				# 599686042433355775
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_directed_edge_origin" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="edge" type="int" />
 			<description>
-				Provides the origin hexagon from the directed edge H3Index.
+				Provides the origin hexagon from the directed edge [code]H3Index[/code].
+				[codeblock]
+				h3.get_directed_edge_destination(1248204388774707199)
+				# 599686043507097599
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_hexagon_area_avg_km2" qualifiers="const">
@@ -276,6 +449,10 @@
 			<param index="0" name="res" type="int" />
 			<description>
 				Average hexagon area in square kilometers at the given resolution. Excludes pentagons.
+				[codeblock]
+				h3.get_hexagon_area_avg_km2(5)
+				# 252.903858181945
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_hexagon_area_avg_m2" qualifiers="const">
@@ -283,6 +460,10 @@
 			<param index="0" name="res" type="int" />
 			<description>
 				Average hexagon area in square meters at the given resolution. Excludes pentagons.
+				[codeblock]
+				h3.get_hexagon_area_avg_m2(5)
+				# 252903858.181945
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_hexagon_edge_length_avg_km" qualifiers="const">
@@ -290,6 +471,10 @@
 			<param index="0" name="res" type="int" />
 			<description>
 				Average hexagon edge length in kilometers at the given resolution. Excludes pentagons.
+				[codeblock]
+				h3.get_hexagon_edge_length_avg_km(5)
+				# 9.85409099
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_hexagon_edge_length_avg_m" qualifiers="const">
@@ -297,6 +482,10 @@
 			<param index="0" name="res" type="int" />
 			<description>
 				Average hexagon edge length in meters at the given resolution. Excludes pentagons.
+				[codeblock]
+				h3.get_hexagon_edge_length_avg_m(5)
+				# 9854.0909
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_icosahedron_faces" qualifiers="const">
@@ -304,6 +493,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Find all icosahedron faces intersected by a given H3 cell. Faces are represented as integers from 0-19, inclusive.
+				[codeblock]
+				h3.get_icosahedron_faces(599686042433355775)
+				# [7]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_icosahedron_faces_packed" qualifiers="const">
@@ -318,6 +511,10 @@
 			<param index="0" name="res" type="int" />
 			<description>
 				Number of unique H3 indexes at the given resolution.
+				[codeblock]
+				h3.get_num_cells(5)
+				# 2016842
+				[/codeblock]
 			</description>
 		</method>
 		<method name="get_pentagons" qualifiers="const">
@@ -351,6 +548,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns the resolution of the index. (Works for cells, edges, and vertexes.)
+				[codeblock]
+				h3.get_resolution(599686042433355775)
+				# 5
+				[/codeblock]
 			</description>
 		</method>
 		<method name="great_circle_distance_km" qualifiers="const">
@@ -359,6 +560,10 @@
 			<param index="1" name="point2" type="Vector2" />
 			<description>
 				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in kilometers.
+				[codeblock]
+				h3.great_circle_distance_km(Vector2(-10, 0), Vector2(10, 0))
+				# 2223.90103950459
+				[/codeblock]
 			</description>
 		</method>
 		<method name="great_circle_distance_m" qualifiers="const">
@@ -367,6 +572,10 @@
 			<param index="1" name="point2" type="Vector2" />
 			<description>
 				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in meters.
+				[codeblock]
+				h3.great_circle_distance_m(Vector2(-10, 0), Vector2(10, 0))
+				# 2223901.03950459
+				[/codeblock]
 			</description>
 		</method>
 		<method name="great_circle_distance_rads" qualifiers="const">
@@ -375,6 +584,10 @@
 			<param index="1" name="point2" type="Vector2" />
 			<description>
 				Gives the "great circle" or "haversine" distance between pairs of LatLng points (lat/lng pairs) in radians.
+				[codeblock]
+				h3.great_circle_distance_rads(Vector2(-10, 0), Vector2(10, 0))
+				# 0.34906585039887
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_disk" qualifiers="const">
@@ -384,6 +597,30 @@
 			<description>
 				Produces the "filled-in disk" of cells which are at most grid distance k from the origin cell.
 				Output order is not guaranteed.
+				[codeblock]
+				h3.grid_disk(599686042433355775, 2)
+				# [
+				#  599686042433355775,
+				#  599686030622195711,
+				#  599686044580839423,
+				#  599686038138388479,
+				#  599686043507097599,
+				#  599686015589810175,
+				#  599686014516068351,
+				#  599686034917163007,
+				#  599686029548453887,
+				#  599686032769679359,
+				#  599686198125920255,
+				#  599686040285872127,
+				#  599686041359613951,
+				#  599686039212130303,
+				#  599686023106002943,
+				#  599686027400970239,
+				#  599686013442326527,
+				#  599686012368584703,
+				#  599686018811035647
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_disk_distances" qualifiers="const">
@@ -392,6 +629,34 @@
 			<param index="1" name="k" type="int" />
 			<description>
 				Produces the same set of cells as gridDisk, but along with each cell's grid distance from the origin cell.
+				[codeblock]
+				h3.grid_disk_distances(599686042433355775, 2)
+				# [
+				#  [599686042433355775],
+				#  [
+				#   599686030622195711,
+				#   599686044580839423,
+				#   599686038138388479,
+				#   599686043507097599,
+				#   599686015589810175,
+				#   599686014516068351
+				#  ],
+				#  [
+				#   599686034917163007,
+				#   599686029548453887,
+				#   599686032769679359,
+				#   599686198125920255,
+				#   599686040285872127,
+				#   599686041359613951,
+				#   599686039212130303,
+				#   599686023106002943,
+				#   599686027400970239,
+				#   599686013442326527,
+				#   599686012368584703,
+				#   599686018811035647
+				#  ]
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_disk_distances_unsafe" qualifiers="const">
@@ -401,6 +666,34 @@
 			<description>
 				gridDiskDistancesUnsafe produces indexes within k distance of the origin index. Output behavior is undefined when one of the indexes returned by this function is a pentagon or is in the pentagon distortion area.
 				Output is placed in the provided array in order of increasing distance from the origin. The distances in hexagons is placed in the distances array at the same offset. The provided array must be of size maxGridDiskSize(k).
+				[codeblock]
+				h3.grid_disk_distances_unsafe(599686042433355775, 2)
+				# [
+				#  [599686042433355775],
+				#  [
+				#   599686030622195711,
+				#   599686044580839423,
+				#   599686038138388479,
+				#   599686043507097599,
+				#   599686015589810175,
+				#   599686014516068351
+				#  ],
+				#  [
+				#   599686034917163007,
+				#   599686029548453887,
+				#   599686032769679359,
+				#   599686198125920255,
+				#   599686040285872127,
+				#   599686041359613951,
+				#   599686039212130303,
+				#   599686023106002943,
+				#   599686027400970239,
+				#   599686013442326527,
+				#   599686012368584703,
+				#   599686018811035647
+				#  ]
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_disk_packed" qualifiers="const">
@@ -419,6 +712,30 @@
 			<description>
 				Produces cells within grid distance k of the origin cell, just like gridDisk. However, the function may return an error code if pentagonal distorition is encountered. In this case, the output in the out array is undefined.
 				Users can fall back to calling the slower but more robust gridDiskDistances.
+				[codeblock]
+				h3.grid_disk_unsafe(599686042433355775, 2)
+				# [
+				#  599686042433355775,
+				#  599686030622195711,
+				#  599686044580839423,
+				#  599686038138388479,
+				#  599686043507097599,
+				#  599686015589810175,
+				#  599686014516068351,
+				#  599686034917163007,
+				#  599686029548453887,
+				#  599686032769679359,
+				#  599686198125920255,
+				#  599686040285872127,
+				#  599686041359613951,
+				#  599686039212130303,
+				#  599686023106002943,
+				#  599686027400970239,
+				#  599686013442326527,
+				#  599686012368584703,
+				#  599686018811035647
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_disk_unsafe_packed" qualifiers="const">
@@ -441,6 +758,10 @@
 					- the cells are too far apart, or
 					- the cells are separated by pentagonal distortion.
 				This is the same set of limitations as the local IJ coordinate space functions.
+				[codeblock]
+				h3.grid_distance(599686042433355775, 599686023106002943)
+				# 2
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_path_cells" qualifiers="const">
@@ -453,6 +774,10 @@
 				Notes:
 					The output of this function should not be considered stable across library versions. The only guarantees are that the path length will be gridDistance(start, end) + 1 and that every cell in the path will be a neighbor of the preceding cell.
 					Paths exist in the H3 grid of cells, and may not align closely with either Cartesian lines or great arcs.
+				[codeblock]
+				h3.grid_path_cells(599686042433355775, 599686023106002943)
+				# [599686042433355775, 599686043507097599, 599686023106002943]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_path_cells_packed" qualifiers="const">
@@ -473,6 +798,10 @@
 			<param index="1" name="end" type="int" />
 			<description>
 				Number of cells in a grid path from the start cell to the end cell.
+				[codeblock]
+				h3.grid_path_cells_size(599686042433355775, 599686023106002943)
+				# 3
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_ring_unsafe" qualifiers="const">
@@ -482,6 +811,17 @@
 			<description>
 				Produces the "hollow ring" of cells which are exactly grid distance k from the origin cell.
 				This function may fail if pentagonal distortion is encountered.
+				[codeblock]
+				h3.grid_ring_unsafe(599686042433355775, 1)
+				# [
+				#  599686014516068351,
+				#  599686030622195711,
+				#  599686044580839423,
+				#  599686038138388479,
+				#  599686043507097599,
+				#  599686015589810175
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="grid_ring_unsafe_packed" qualifiers="const">
@@ -497,28 +837,32 @@
 			<return type="String" />
 			<param index="0" name="h3_index" type="int" />
 			<description>
-				Converts the H3Index representation of the index to the string representation.
+				Converts the [code]H3Index[/code] representation of the index to the string representation.
+				[codeblock]
+				h3.h3_to_string(599686042433355775)
+				# 85283473fffffff
+				[/codeblock]
 			</description>
 		</method>
 		<method name="h3_to_vector4" qualifiers="const">
 			<return type="Vector4" />
 			<param index="0" name="h3_index" type="int" />
 			<description>
-				Converts the H3Index representation of the index to a Vector4.
+				Converts the [code]H3Index[/code] representation of the index to a [code]Vector4[/code].
 			</description>
 		</method>
 		<method name="h3s_to_string" qualifiers="const">
 			<return type="Array" />
 			<param index="0" name="h3_indices" type="Array" />
 			<description>
-				Converts an array of H3Index representation to an array of strings.
+				Converts an array of [code]H3Index[/code] representation to an array of strings.
 			</description>
 		</method>
 		<method name="h3s_to_string_packed" qualifiers="const">
 			<return type="PackedStringArray" />
 			<param index="0" name="h3_indices" type="PackedInt64Array" />
 			<description>
-				Converts an array of H3Index representation to an array of strings.
+				Converts an array of [code]H3Index[/code] representation to an array of strings.
 			</description>
 		</method>
 		<method name="is_pentagon" qualifiers="const">
@@ -526,6 +870,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns non-zero if this index represents a pentagonal cell.
+				[codeblock]
+				h3.is_pentagon(599686042433355775)
+				# false
+				[/codeblock]
 			</description>
 		</method>
 		<method name="is_res_class_iii" qualifiers="const">
@@ -533,6 +881,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns non-zero if this index has a resolution with Class III orientation.
+				[codeblock]
+				h3.is_res_class_iii(599686042433355775)
+				# true
+				[/codeblock]
 			</description>
 		</method>
 		<method name="is_valid_cell" qualifiers="const">
@@ -540,13 +892,21 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns non-zero if this is a valid H3 cell index.
+				[codeblock]
+				h3.is_valid_cell(599686042433355775)
+				# true
+				[/codeblock]
 			</description>
 		</method>
 		<method name="is_valid_directed_edge" qualifiers="const">
 			<return type="bool" />
 			<param index="0" name="edge" type="int" />
 			<description>
-				Determines if the provided H3Index is a valid unidirectional edge index.
+				Determines if the provided [code]H3Index[/code] is a valid unidirectional edge index.
+				[codeblock]
+				h3.is_valid_directed_edge(1248204388774707199)
+				# true
+				[/codeblock]
 			</description>
 		</method>
 		<method name="is_valid_vertex" qualifiers="const">
@@ -554,6 +914,10 @@
 			<param index="0" name="vertex" type="int" />
 			<description>
 				Determines if the given H3 index represents a valid H3 vertex.
+				[codeblock]
+				h3.is_valid_vertex(2689356265238298623)
+				# true
+				[/codeblock]
 			</description>
 		</method>
 		<method name="lat_lng_to_cell" qualifiers="const">
@@ -563,6 +927,10 @@
 			<param index="2" name="res" type="int" />
 			<description>
 				Indexes the location at the specified resolution, providing the index of the cell containing the location. This buckets the geographic point into the H3 grid. For more information, see the [url=https://h3geo.org/docs/core-library/latLngToCellDesc]algorithm description[/url].
+				[codeblock]
+				h3.lat_lng_to_cell(45, 40, 2)
+				# 586265647244115967
+				[/codeblock]
 			</description>
 		</method>
 		<method name="local_ij_to_cell" qualifiers="const">
@@ -572,6 +940,10 @@
 			<description>
 				Produces an H3 cell from local IJ coordinates anchored by an origin.
 				This function's output is not guaranteed to be compatible across different versions of H3.
+				[codeblock]
+				h3.local_ij_to_cell(599686042433355775, Vector2i(0, 0))
+				# 599682438955794431
+				[/codeblock]
 			</description>
 		</method>
 		<method name="max_face_count" qualifiers="const">
@@ -579,6 +951,10 @@
 			<param index="0" name="h3_index" type="int" />
 			<description>
 				Returns the maximum number of icosahedron faces the given H3 index may intersect.
+				[codeblock]
+				h3.max_face_count(599686042433355775)
+				# 1
+				[/codeblock]
 			</description>
 		</method>
 		<method name="max_grid_disk_size" qualifiers="const">
@@ -586,6 +962,10 @@
 			<param index="0" name="k" type="int" />
 			<description>
 				Maximum number of cells that can result from the gridDisk function for a given k.
+				[codeblock]
+				h3.max_grid_disk_size(2)
+				# 19
+				[/codeblock]
 			</description>
 		</method>
 		<method name="max_polygon_to_cells_experimental_size" qualifiers="const">
@@ -596,6 +976,14 @@
 			<param index="3" name="is_geojson" type="bool" default="false" />
 			<description>
 				Provides an upper bound on the number of cells needed for memory allocation purposes when computing polygon_to_cells_experimental on the given GeoJSON-like data structure.
+				[codeblock]
+				h3.max_polygon_to_cells_experimental_size([
+					Vector2(37.8133189999832, -122.408986699997),
+					Vector2(37.7198061999978, -122.354473699999),
+					Vector2(37.8151571999998, -122.479876700000)
+				], 7, 0)
+				# 28
+				[/codeblock]
 			</description>
 		</method>
 		<method name="max_polygon_to_cells_size" qualifiers="const">
@@ -606,6 +994,14 @@
 			<param index="3" name="is_geojson" type="bool" default="false" />
 			<description>
 				Provides an upper bound on the number of cells needed for memory allocation purposes when computing polygon_to_cells on the given GeoJSON-like data structure.
+				[codeblock]
+				h3.max_polygon_to_cells_size([
+					Vector2(37.8133189999832, -122.408986699997),
+					Vector2(37.7198061999978, -122.354473699999),
+					Vector2(37.8151571999998, -122.479876700000)
+				], 7, 0)
+				# 100
+				[/codeblock]
 			</description>
 		</method>
 		<method name="origin_to_directed_edges" qualifiers="const">
@@ -614,6 +1010,17 @@
 			<description>
 				Provides all of the directed edges from the current cell.
 				edges must be of length 6, and the number of directed edges placed in the array may be less than 6. If this is the case, one of the members of the array will be 0.
+				[codeblock]
+				h3.origin_to_directed_edges(599686042433355775)
+				# [
+				#  1248204388774707199,
+				#  1320261982812635135,
+				#  1392319576850563071,
+				#  1464377170888491007,
+				#  1536434764926418943,
+				#  1608492358964346879
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="origin_to_directed_edges_packed" qualifiers="const">
@@ -639,6 +1046,22 @@
 			<description>
 				Each binding's version of polygon_to_cells takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
 				Containment is determined by centroids of the cells, so that a partitioning of polygons (covering an area without overlaps) will result in a partitioning of H3 cells.
+				[codeblock]
+				h3.polygon_to_cells([
+					Vector2(37.8133189999832, -122.408986699997),
+					Vector2(37.7198061999978, -122.354473699999),
+					Vector2(37.8151571999998, -122.479876700000)
+				], 7, 0)
+				# [
+				#  608692970769612799,
+				#  608692971927240703,
+				#  608692970585063423,
+				#  608692970819944447,
+				#  608692970719281151,
+				#  608692970752835583,
+				#  608692972027903999
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="polygon_to_cells_experimental" qualifiers="const">
@@ -650,6 +1073,22 @@
 			<description>
 				Each binding's version of polygon_to_cells_experimental takes as input a GeoJSON-like data structure describing a polygon (i.e., an outer ring and optional holes) and a target cell resolution. It produces a collection of cells that are contained within the polygon.
 				This function differs from polygon_to_cells in that it uses an experimental new algorithm which supports center-based, fully-contained, and overlapping containment modes.
+				[codeblock]
+				h3.polygon_to_cells_experimental([
+					Vector2(37.8133189999832, -122.408986699997),
+					Vector2(37.7198061999978, -122.354473699999),
+					Vector2(37.8151571999998, -122.479876700000)
+				], 7, 0)
+				# [
+				#  608692970769612799,
+				#  608692971927240703,
+				#  608692970585063423,
+				#  608692970819944447,
+				#  608692970719281151,
+				#  608692970752835583,
+				#  608692972027903999
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="polygon_to_cells_experimental_packed" qualifiers="const">
@@ -679,6 +1118,10 @@
 			<param index="0" name="radians" type="float" />
 			<description>
 				Converts radians to degrees.
+				[codeblock]
+				h3.rads_to_degs(3.14159)
+				# 179.999847960504
+				[/codeblock]
 			</description>
 		</method>
 		<method name="res0_cell_count" qualifiers="const">
@@ -691,21 +1134,25 @@
 			<return type="int" />
 			<param index="0" name="h3_str" type="String" />
 			<description>
-				Converts the string representation to H3Index (int) representation.
+				Converts the string representation to [code]H3Index (int)[/code] representation.
+				[codeblock]
+				h3.string_to_h3("85283473fffffff")
+				# 599686042433355775
+				[/codeblock]
 			</description>
 		</method>
 		<method name="strings_to_h3" qualifiers="const">
 			<return type="Array" />
 			<param index="0" name="strs" type="Array" />
 			<description>
-				Converts an array of strings to an array of H3Index representation.
+				Converts an array of strings to an array of [code]H3Index[/code] representation.
 			</description>
 		</method>
 		<method name="strings_to_h3_packed" qualifiers="const">
 			<return type="PackedInt64Array" />
 			<param index="0" name="strs" type="PackedStringArray" />
 			<description>
-				Converts an array of strings to an array of H3Index representation.
+				Converts an array of strings to an array of [code]H3Index[/code] representation.
 			</description>
 		</method>
 		<method name="uncompact_cells" qualifiers="const">
@@ -713,7 +1160,19 @@
 			<param index="0" name="compacted_set" type="Array" />
 			<param index="1" name="res" type="int" />
 			<description>
-				Uncompacts the set compacted_set of indexes to the resolution res. h3_set must be at least of size uncompact_cells_size(compacted_set, num_hexes, res).
+				Uncompacts the set [code]compacted_set[/code] of indexes to the resolution res. [code]h3_set[/code] must be at least of size [code]uncompact_cells_size(compacted_set, num_hexes, res)[/code].
+				[codeblock]
+				h3.uncompact_cells(h3.compact_cells(h3.grid_disk(599686042433355775, 1)), 5)
+				# [
+				#  599686042433355775,
+				#  599686030622195711,
+				#  599686044580839423,
+				#  599686038138388479,
+				#  599686043507097599,
+				#  599686015589810175,
+				#  599686014516068351
+				# ]
+				[/codeblock]
 			</description>
 		</method>
 		<method name="uncompact_cells_packed" qualifiers="const">
@@ -721,7 +1180,7 @@
 			<param index="0" name="compacted_set" type="PackedInt64Array" />
 			<param index="1" name="res" type="int" />
 			<description>
-				Uncompacts the set compacted_set of indexes to the resolution res. h3_set must be at least of size uncompact_cells_size(compacted_set, num_hexes, res).
+				Uncompacts the set [code]compacted_set[/code] of indexes to the resolution res. [code]h3_set[/code] must be at least of size [code]uncompact_cells_size(compacted_set, num_hexes, res)[/code].
 			</description>
 		</method>
 		<method name="uncompact_cells_size" qualifiers="const">
@@ -730,6 +1189,10 @@
 			<param index="1" name="res" type="int" />
 			<description>
 				Provides the total resulting number of cells if uncompacting a cell set to a given resolution.
+				[codeblock]
+				h3.uncompact_cells_size(h3.compact_cells(h3.grid_disk(599686042433355775, 1)), 5)
+				# 7
+				[/codeblock]
 			</description>
 		</method>
 		<method name="uncompact_cells_size_packed" qualifiers="const">
@@ -744,7 +1207,7 @@
 			<return type="int" />
 			<param index="0" name="vec" type="Vector4" />
 			<description>
-				Converts the Vector4 representation back to an H3Index
+				Converts the [code]Vector4[/code] representation back to an [code]H3Index[/code]
 			</description>
 		</method>
 		<method name="vertex_to_lat_lng" qualifiers="const">
@@ -752,6 +1215,10 @@
 			<param index="0" name="vertex" type="int" />
 			<description>
 				Returns the latitude and longitude coordinates of the given vertex.
+				[codeblock]
+				h3.vertex_to_lat_lng(2689356265238298623)
+				# (37.42013, -122.0377)
+				[/codeblock]
 			</description>
 		</method>
 	</methods>
