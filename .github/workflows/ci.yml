@@ -58,7 +58,7 @@ jobs:
           path: addons\\
 
   package:
-    needs: [build, build-windows]
+    needs: [build-linux, build-windows]
     runs-on: ubuntu-latest
     steps:
       - name: Download linux artifact
