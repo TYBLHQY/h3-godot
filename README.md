@@ -14,6 +14,7 @@ Documentation is available at [https://h3geo.org/](https://h3geo.org/). Develope
 
 ## Supported OS
 
+- [x] Linux
 - [x] Windows
 
 ## How to use
@@ -21,3 +22,7 @@ Documentation is available at [https://h3geo.org/](https://h3geo.org/). Develope
 ```gdscript
 var h3: H3Core = H3Core.new()
 ```
+
+## Video
+
+https://www.bilibili.com/video/BV1dpjEzMEXJ/
