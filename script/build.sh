@@ -28,7 +28,8 @@ mkdir -p build
 cd build
 
 echo "Configuring CMake..."
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF ..
+# Disable building docs in CI/automation to avoid requiring Doxygen/Graphviz on runners
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF -DENABLE_DOCS=OFF ..
 
 echo "Building h3..."
 cmake --build . --config Release

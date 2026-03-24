@@ -31,7 +31,8 @@ if not exist build mkdir build
 cd build
 
 echo Configuring CMake...
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF ..
+REM Disable docs generation to avoid requiring Doxygen/Graphviz on CI
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF -DENABLE_DOCS=OFF ..
 if errorlevel 1 goto error
 
 echo Building h3...
