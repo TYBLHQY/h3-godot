@@ -78,11 +78,11 @@ jobs:
       - name: Merge artifacts (windows overwrites linux)
         run: |
           mkdir -p merged
-          if [ -d "artifacts/linux/addons" ]; then
-            cp -a artifacts/linux/addons/. merged/
+          if [ -d "artifacts/linux" ]; then
+            cp -a artifacts/linux/. merged/ || true
           fi
-          if [ -d "artifacts/windows/addons" ]; then
-            cp -a artifacts/windows/addons/. merged/
+          if [ -d "artifacts/windows" ]; then
+            cp -a artifacts/windows/. merged/ || true
           fi
 
       - name: Create archives
