@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake scons git python3 python3-pip pkg-config
+
+      - name: Make build script executable
+        run: chmod +x script/build.sh
+
+      - name: Run build script (fast)
+        env:
+          # Limit parallelism to avoid heavy CI usage; override in local runs
+          SCONSFLAGS: -j2
+        run: |
+          # init submodules
+          git submodule update --init --recursive
+          # run build script; it will stop on error
+          ./script/build.sh
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install scons
+        shell: bash
+
+      - name: Run Windows build script
+        run: cmd /c script\build.bat

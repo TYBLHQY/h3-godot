@@ -73,6 +73,20 @@ del addons\h3-godot\bin\*.lib
 echo.
 echo Build completed successfully!
 
+REM Copy plugin files from export to addons because addons/ is not uploaded
+echo.
+echo Copying plugin files from export to addons\h3-godot\ ...
+if exist export\h3-godot.gd (
+	copy /Y export\h3-godot.gd addons\h3-godot\
+)
+if exist export\plugin.cfg (
+	copy /Y export\plugin.cfg addons\h3-godot\
+)
+if exist export\h3_godot_extension.gdextension (
+	copy /Y export\h3_godot_extension.gdextension addons\h3-godot\
+)
+
+
 REM back to the source directory
 popd
 goto end

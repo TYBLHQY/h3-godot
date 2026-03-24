@@ -16,6 +16,11 @@ env.Append(LIBPATH=[
     "h3/build/bin/Release"
 ])
 
+# On Linux CMake places shared objects in h3/build/lib (with sonames).
+# Prefer that path when linking on Linux so the linker can find libh3.so
+if env.get("platform") == "linux":
+    env.Prepend(LIBPATH=["h3/build/lib", "h3/build/bin/Release"])
+
 env.Append(LIBS=["h3"])
 
 env.Append(CPPPATH=["src/"])
